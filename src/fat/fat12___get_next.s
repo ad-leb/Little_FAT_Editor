@@ -11,7 +11,7 @@ L_base:
 	test	$0x0001, %di
 	setnz	%bl
 	
-	call	fat12___clus_to_sect
+	call	fat12___reconv12
 		lodsw
 	
 	or	%bl, %bl

@@ -1,3 +1,3 @@
-typedef unsigned char			BYTE;
-typedef unsigned short			WORD;
-typedef unsigned int			DWORD;
+typedef unsigned char			byte;
+typedef unsigned short			word;
+typedef unsigned int			dword;

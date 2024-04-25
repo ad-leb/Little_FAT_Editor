@@ -10,8 +10,8 @@ BINDIR::= bin
 
 RAWDIR::= $(OBJDIR)/raw
 IMAGEDIR::= $(SRCDIR)/image
-FAT12DIR::= $(IMAGEDIR)/fat
-ROOTFDIR::= $(IMAGEDIR)/rootf
+FAT12DIR::= $(SRCDIR)/fat
+ROOTFDIR::= $(SRCDIR)/rootf
 
 VPATH= $(SRCDIR):$(FAT12DIR):$(ROOTFDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
 
@@ -53,7 +53,7 @@ down:
 	@rm -fd $(OBJDIR)/*
 	@rm -fd $(BINDIR)/*
 clean:
-	@for f in *; do if [ ! -d $$f ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README' ]; then rm -f $$f; fi; done
+	@for f in *; do if [ ! -d $$f ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ]; then rm -f $$f; fi; done
 
 edit:
 	@vim -p $(SRCDIR)/*
@@ -89,6 +89,6 @@ $(ROOTF): $(ROOTF_RAW)
 
 
 %.o: %.c
-	gcc -c $< -o $(RAWDIR)/$@
+	gcc -c -fpack-struct $< -o $(RAWDIR)/$@
 %.o: %.s
 	as $< -o $(RAWDIR)/$@

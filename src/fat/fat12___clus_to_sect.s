@@ -1,8 +1,8 @@
-.global		fat12___clus_to_sect
+.global		fat12___reconv12
 
 
 .text
-fat12___clus_to_sect:
+fat12___reconv12:
 	movq	data___fat_table, %rsi
 	addq	%rdi, %rsi
 	shrq	$1, %rdi

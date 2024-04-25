@@ -14,7 +14,7 @@ L_step:
 	inc	%rbx
 	
 	movq	%rbx, %rdi
-	call	fat12___clus_to_sect
+	call	fat12___reconv12
 		lodsw
 	
 	call	fat12___conv12
