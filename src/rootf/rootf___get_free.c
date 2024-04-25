@@ -1,7 +1,8 @@
 #include "type.c"
+#include "../defs.h"
 
 
-void*							data___root_table;
+extern void*					data___root_table;
 
 
 

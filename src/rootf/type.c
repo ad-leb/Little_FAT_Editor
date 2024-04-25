@@ -1,13 +1,5 @@
 #include "../type.c"
 
-
-#define ROOT_SIZE				0x20
-#define NULL					0
-
-
-
-
-
 struct root_entry {
 	byte						name[8];
 	byte 						exp[3];

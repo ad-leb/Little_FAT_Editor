@@ -1,5 +1,5 @@
 .SUFFIXES:
-.PHONY: all    zen down clean    edit run
+.PHONY: all    zen down clean    edit run    test
 .DEFAULT: all
 
 
@@ -12,22 +12,27 @@ RAWDIR::= $(OBJDIR)/raw
 IMAGEDIR::= $(SRCDIR)/image
 FAT12DIR::= $(SRCDIR)/fat
 ROOTFDIR::= $(SRCDIR)/rootf
+HELPRDIR::= $(SRCDIR)/helpr
 
-VPATH= $(SRCDIR):$(FAT12DIR):$(ROOTFDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
+VPATH= $(SRCDIR):$(IMAGEDIR):$(FAT12DIR):$(ROOTFDIR):$(HELPRDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
 
 
 
 
 TGT::= prog
+IMAGE::= image.o
 FAT12::= fat12.o
 ROOTF::= rootf.o
+HELPR::= helpr.o
 
 
 
 
 
+IMAGE_RAW::= $(shell find $(SRCDIR) -name image___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 FAT12_RAW::= $(shell find $(SRCDIR) -name fat12___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 ROOTF_RAW::= $(shell find $(SRCDIR) -name rootf___* | sed -e 's/.*\///' -e 's/\..*/.o/')
+HELPR_RAW::= $(shell find $(SRCDIR) -name helpr___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 
 
 
@@ -61,7 +66,7 @@ run:
 	@./$(BINDIR)/$(TGT)
 
 
-test: init $(FAT12) $(ROOTF)
+test: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE)
 
 
 
@@ -79,10 +84,14 @@ test: init $(FAT12) $(ROOTF)
 
 
 
+$(IMAGE): $(IMAGE_RAW)
+	ld -r $(addprefix $(RAWDIR)/, $(IMAGE_RAW)) -o $(OBJDIR)/$@
 $(FAT12): $(FAT12_RAW)
 	ld -r $(addprefix $(RAWDIR)/, $(FAT12_RAW)) -o $(OBJDIR)/$@
 $(ROOTF): $(ROOTF_RAW)
 	ld -r $(addprefix $(RAWDIR)/, $(ROOTF_RAW)) -o $(OBJDIR)/$@
+$(HELPR): $(HELPR_RAW)
+	ld -r $(addprefix $(RAWDIR)/, $(HELPR_RAW)) -o $(OBJDIR)/$@
 
 
 
