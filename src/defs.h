@@ -13,4 +13,4 @@
 #define ERR_READ				0003
 #define ERR_WRTE				0004
 #define ERR_SEEK				0005
-
+#define ERR_NFND				0006

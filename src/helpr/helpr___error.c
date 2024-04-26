@@ -1,10 +1,10 @@
-#include "defs.h"
+#include "../defs.h"
 
 
 void helpr___exit (int);
 
 
-void error (int code)
+void helpr___error (int code)
 {
 	switch ( code ) {
 		case ERR_OPEN	:				helpr___exit(ERR_OPEN);				break;
