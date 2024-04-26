@@ -1,24 +1,22 @@
-/*	config spase	*/
-void configure ();
-int	conf_get_image ();
-int conf_get_file_count ();
-int conf_get_next_file ();
+#include <fcntl.h>
+#include "defs.h"
 
-/*	image space		*/
-void image_prepare (int);
-void image_write (int);
+extern int						data___image_fd;
+
+
+
+void image___configure ();
+void helpr___exit (int);
+
+void error (int);
+
 
 
 
 int main (int argc, char* argv[])
 {
-	configure();
+	data___image_fd = open("floppy.img", O_RDONLY);
+		if ( data___image_fd == -1 )											error(ERR_OPEN);
 
-	image___prepare(conf_get_image());
-
-	for (int i = 1; i <= conf_get_file_count(); i++) {
-		write_file(conf_get_next_file);
-	}
-
-	return 0;
+	image___configure();														helpr___exit(0);
 }
