@@ -1,4 +1,4 @@
-#include "../defs.h"
+#include "header.h"
 
 extern int						data___image_fd;
 

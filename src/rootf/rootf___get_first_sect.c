@@ -1,5 +1,4 @@
-#include "type.c"
-#include "../defs.h"
+#include "header.h"
 
 
 struct root_entry*  rootf___found_by_name (unsigned char*);

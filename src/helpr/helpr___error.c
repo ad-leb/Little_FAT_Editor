@@ -1,4 +1,4 @@
-#include "../defs.h"
+#include "header.h"
 
 
 void helpr___exit (int);

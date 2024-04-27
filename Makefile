@@ -9,17 +9,19 @@ OBJDIR::= obj
 BINDIR::= bin
 
 RAWDIR::= $(OBJDIR)/raw
+_BODYDIR::= $(SRCDIR)/_body
 IMAGEDIR::= $(SRCDIR)/image
 FAT12DIR::= $(SRCDIR)/fat
 ROOTFDIR::= $(SRCDIR)/rootf
 HELPRDIR::= $(SRCDIR)/helpr
 
-VPATH= $(SRCDIR):$(IMAGEDIR):$(FAT12DIR):$(ROOTFDIR):$(HELPRDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
+VPATH= $(SRCDIR):$(_BODYDIR):$(IMAGEDIR):$(FAT12DIR):$(ROOTFDIR):$(HELPRDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
 
 
 
 
 TGT::= prog
+_BODY::= _body.o
 IMAGE::= image.o
 FAT12::= fat12.o
 ROOTF::= rootf.o
@@ -29,6 +31,7 @@ HELPR::= helpr.o
 
 
 
+_BODY_RAW::= $(shell ls $(_BODYDIR) | grep .*.[cs]$$ | sed -e 's/.*\///' -e 's/\..*/.o/')
 IMAGE_RAW::= $(shell find $(SRCDIR) -name image___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 FAT12_RAW::= $(shell find $(SRCDIR) -name fat12___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 ROOTF_RAW::= $(shell find $(SRCDIR) -name rootf___* | sed -e 's/.*\///' -e 's/\..*/.o/')
@@ -66,7 +69,7 @@ run:
 	@./$(BINDIR)/$(TGT)
 
 
-test: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE)
+test: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE) $(_BODY)
 
 
 
@@ -84,6 +87,8 @@ test: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE)
 
 
 
+$(_BODY): $(_BODY_RAW)
+	ld -r $(addprefix $(RAWDIR)/, $(_BODY_RAW)) -o $(OBJDIR)/$@
 $(IMAGE): $(IMAGE_RAW)
 	ld -r $(addprefix $(RAWDIR)/, $(IMAGE_RAW)) -o $(OBJDIR)/$@
 $(FAT12): $(FAT12_RAW)
@@ -98,6 +103,6 @@ $(HELPR): $(HELPR_RAW)
 
 
 %.o: %.c
-	gcc -c -fpack-struct $< -o $(RAWDIR)/$@
+	gcc -c -fpack-struct -isystem $(_BODYDIR) $< -o $(RAWDIR)/$@
 %.o: %.s
 	as $< -o $(RAWDIR)/$@

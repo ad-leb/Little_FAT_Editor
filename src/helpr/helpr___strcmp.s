@@ -1,23 +1,35 @@
-.global		helpr___namecmp
+.global		helpr___strcmp
 
 
 .text
-helpr___namecmp:
+helpr___strcmp:
+	pushq	%rdx
 
-	movq	$10, %rcx
+
+	movq	%rcx, %rdx
+	andq	$0b0111, %rdx
+
+L_quad_cmp:
+	shrq	$3, %rcx
+	repe	cmpsq
+	jnz	L_not_full
+L_byte_cmp:
+	movq	%rdx, %rcx
 	repe	cmpsb
 	jnz	L_not_full
 
+L_done:
+	xorq	%rax, %rax
 L_fin:
-	movq	$0, %rax
+	popq	%rdx
 	ret
+
+
+
+
 
 
 L_not_full:
 	decq	%rsi
 		lodsb
-	orb	%al, %al
-	jz	L_fin
-L_err:
-	movq	$1, %rax
-	ret
+	jmp	L_fin

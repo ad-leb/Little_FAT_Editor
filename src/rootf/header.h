@@ -1,4 +1,5 @@
-#include "../type.c"
+#include <type.c>
+#include <defs.h>
 
 struct root_entry {
 	byte						name[8];

@@ -1,5 +1,4 @@
-#include "type.c"
-#include "../defs.h"
+#include "header.h"
 
 
 extern struct image_info		data___image_info;

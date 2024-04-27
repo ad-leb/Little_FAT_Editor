@@ -1,4 +1,4 @@
-#include "type.c"
+#include "header.h"
 
 
 void rootf___remove_entry (struct root_entry* entry)

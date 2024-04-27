@@ -1,4 +1,4 @@
-#include "type.c"
+#include "header.h"
 
 
 void rootf___resize_entry (struct root_entry* entry, dword new_size)

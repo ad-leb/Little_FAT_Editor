@@ -1,4 +1,4 @@
-#include "type.c"
+#include "header.h"
 
 
 struct root_entry* rootf___get_free ();

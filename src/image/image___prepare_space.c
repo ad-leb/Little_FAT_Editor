@@ -1,4 +1,4 @@
-#include "type.c"
+#include "header.h"
 
 
 extern int						data___root_size;

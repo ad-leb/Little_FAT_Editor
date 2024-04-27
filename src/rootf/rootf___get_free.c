@@ -1,5 +1,4 @@
-#include "type.c"
-#include "../defs.h"
+#include "header.h"
 
 
 extern void*					data___root_table;

@@ -1,6 +1,8 @@
-#include "type.c"
+#include <type.c>
 
+unsigned char					data___image_filename[256];
 int								data___image_fd;
+void*							data___procedure;
 
 
 struct image_info				data___image_info;

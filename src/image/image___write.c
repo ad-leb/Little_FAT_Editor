@@ -1,4 +1,5 @@
-#include "../defs.h"
+#include "header.h"
+
 
 extern int						data___image_fd;
 
@@ -7,6 +8,7 @@ int lseek (int, int, int);
 int write (int, void*, int);
 
 void helpr___error (int);
+
 
 
 void image___write (void* this, int off, int len)
