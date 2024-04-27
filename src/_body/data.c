@@ -1,6 +1,7 @@
 #include <type.c>
 
-unsigned char					data___image_filename[256];
+unsigned char					data___program_name[256];
+void*							data___program_name_end;
 int								data___image_fd;
 void*							data___procedure;
 

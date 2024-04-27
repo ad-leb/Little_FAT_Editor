@@ -14,13 +14,15 @@ IMAGEDIR::= $(SRCDIR)/image
 FAT12DIR::= $(SRCDIR)/fat
 ROOTFDIR::= $(SRCDIR)/rootf
 HELPRDIR::= $(SRCDIR)/helpr
+_BOOTDIR::= $(_BODYDIR)/_boot
 
-VPATH= $(SRCDIR):$(_BODYDIR):$(IMAGEDIR):$(FAT12DIR):$(ROOTFDIR):$(HELPRDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
+VPATH= $(SRCDIR):$(_BOOTDIR):$(_BODYDIR):$(IMAGEDIR):$(FAT12DIR):$(ROOTFDIR):$(HELPRDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
 
 
 
 
 TGT::= prog
+_BOOT::= _boot.o
 _BODY::= _body.o
 IMAGE::= image.o
 FAT12::= fat12.o
@@ -31,7 +33,8 @@ HELPR::= helpr.o
 
 
 
-_BODY_RAW::= $(shell ls $(_BODYDIR) | grep .*.[cs]$$ | sed -e 's/.*\///' -e 's/\..*/.o/')
+_BODY_RAW::= $(shell find $(_BODYDIR) -maxdepth 1 -type f | grep .*.[cs]$$ | sed -e 's/.*\///' -e 's/\..*/.o/')
+_BOOT_RAW::= $(shell find $(SRCDIR) -name _boot___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 IMAGE_RAW::= $(shell find $(SRCDIR) -name image___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 FAT12_RAW::= $(shell find $(SRCDIR) -name fat12___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 ROOTF_RAW::= $(shell find $(SRCDIR) -name rootf___* | sed -e 's/.*\///' -e 's/\..*/.o/')
@@ -69,7 +72,7 @@ run:
 	@./$(BINDIR)/$(TGT)
 
 
-test: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE) $(_BODY)
+test: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE) $(_BODY) $(_BOOT)
 
 
 
@@ -87,6 +90,8 @@ test: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE) $(_BODY)
 
 
 
+$(_BOOT): $(_BOOT_RAW)
+	ld -r $(addprefix $(RAWDIR)/, $(_BOOT_RAW)) -o $(OBJDIR)/$@
 $(_BODY): $(_BODY_RAW)
 	ld -r $(addprefix $(RAWDIR)/, $(_BODY_RAW)) -o $(OBJDIR)/$@
 $(IMAGE): $(IMAGE_RAW)
