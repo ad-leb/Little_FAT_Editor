@@ -3,7 +3,8 @@
 
 .text
 _boot___4:
-	movq	(%rbp), %rdi
+	movq	%rbp, %rdi
+	movq	%rbp, %rsp
 	movq	data___procedure, %rsi
 	call	*%rsi
 

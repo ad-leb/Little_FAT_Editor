@@ -1,5 +1,5 @@
 .SUFFIXES:
-.PHONY: all    zen down clean    edit run    test
+.PHONY: all    zen down clean    edit run    test_build tpush tpull dpush dpull
 .DEFAULT: all
 
 
@@ -22,6 +22,7 @@ VPATH= $(SRCDIR):$(_BOOTDIR):$(_BODYDIR):$(IMAGEDIR):$(FAT12DIR):$(ROOTFDIR):$(H
 
 
 TGT::= prog
+DBG::= debug
 _BOOT::= _boot.o
 _BODY::= _body.o
 IMAGE::= image.o
@@ -45,16 +46,26 @@ HELPR_RAW::= $(shell find $(SRCDIR) -name helpr___* | sed -e 's/.*\///' -e 's/\.
 
 
 
+TEST_IMG::= floppy.img
+TEST_FILES::= a.tst b.tst
+TEST_MODULES::= $(_BOOT) $(_BODY) $(HELPR)
 
 
 
 
 
-all: zen init $(TGT)
+
+
+
+
+
+
+all: init $(TGT)
 init:
 	@[ ! -e $(OBJDIR) ] && mkdir $(OBJDIR) || true
 	@[ ! -e $(RAWDIR) ] && mkdir $(RAWDIR) || true
 	@[ ! -e $(BINDIR) ] && mkdir $(BINDIR) || true
+
 
 zen: clean down
 	@rm -rf $(OBJDIR) 
@@ -66,13 +77,23 @@ down:
 clean:
 	@for f in *; do if [ ! -d $$f ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ]; then rm -f $$f; fi; done
 
+
 edit:
 	@vim -p $(SRCDIR)/*
 run:
 	@./$(BINDIR)/$(TGT)
 
 
-test: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE) $(_BODY) $(_BOOT)
+test_build: init $(FAT12) $(ROOTF) $(HELPR) $(IMAGE) $(_BODY) $(_BOOT)
+	ld -e _boot -lc --dynamic-linker=/lib64/ld-linux-x86-64.so.2 -o $(BINDIR)/$(DBG) $(addprefix $(OBJDIR)/, $(TEST_MODULES))
+tpush: test_build
+	$(BINDIR)/$(DBG) push $(TEST_IMG) $(TEST_FILES)
+tpull: test_build
+	$(BINDIR)/$(DBG) pull $(TEST_IMG) $(TEST_FILES)
+dpush: test_build
+	gdb --args $(BINDIR)/$(DBG) push $(TEST_IMG) $(TEST_FILES)
+dpull: test_build
+	gdb --args $(BINDIR)/$(DBG) pull $(TEST_IMG) $(TEST_FILES)
 
 
 
