@@ -15,6 +15,6 @@ struct root_entry* rootf___get_free ()
 	slot = data___root_table;
 	while (1) {
 		if ( slot->name[0] == 0 || slot->name[0] == 0xE4 )						return slot;
-		slot += ROOT_SIZE;
+		slot += 1;
 	}
 }

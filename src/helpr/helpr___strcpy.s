@@ -3,7 +3,7 @@
 
 .text
 helpr___strcpy:
-	movq	%rcx, %rdx		# |
+	movq	%rdx, %rcx		# |
 	andq	$0b111, %rdx		# --> 'rdx' takes a low 3 bits (<8), 'rcx' takes all the rest (>8)
 
 L_quad_copy:

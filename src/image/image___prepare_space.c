@@ -4,7 +4,7 @@
 extern int						data___root_size;
 extern void*					data___root_off;
 
-extern void*					data___data_off;
+extern int						data___data_off;
 
 
 

@@ -9,7 +9,6 @@ fat12___get_free:
 
 
 	movq	$3, %rbx
-	movq	data___fat_table, %rdi
 L_step:
 	inc	%rbx
 	

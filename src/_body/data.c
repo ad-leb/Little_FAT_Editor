@@ -5,6 +5,8 @@ void*							data___program_name_end;
 int								data___image_fd;
 void*							data___procedure;
 
+unsigned char					data___buffer;
+
 
 struct image_info				data___image_info;
 
@@ -22,6 +24,7 @@ int								data___data_off;
 int								data___fat_size;
 int								data___root_size;
 int								data___root_entries_count;
+int								data___cluster_size;
 
 
 /****************************************************************/

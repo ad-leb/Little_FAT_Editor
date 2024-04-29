@@ -3,10 +3,24 @@
 
 .text
 _boot___4:
-	movq	%rbp, %rdi
 	movq	%rbp, %rsp
+
+	call	image___load
+
+	movq	%rbp, %rdi
 	movq	data___procedure, %rsi
 	call	*%rsi
+	orb	%al, %al
+	jnz	L_recover
 
+L_fin:
+	xorq	%rdi, %rdi
 	movq	$0x3c, %rax
 	syscall
+
+
+
+
+L_recover:
+	call	image___recover
+	jmp	L_fin
