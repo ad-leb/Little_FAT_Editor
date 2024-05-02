@@ -50,12 +50,12 @@ void inter___write_file (unsigned char* file_name, int file_d)
 	len = read(file_d, data___buffer, data___cluster_size);
 	summ += len;
 	while ( len > 0 ) {
+		old_cluster = cluster;
 		image___write_cluster(data___buffer, cluster);
 
 		fat12___set(cluster, 0xff8);
 		cluster = fat12___get_free();
 		fat12___set(old_cluster, cluster);
-		old_cluster = cluster;
 
 		
 		helpr___memreset(data___buffer, data___cluster_size);
@@ -64,8 +64,8 @@ void inter___write_file (unsigned char* file_name, int file_d)
 	}
 	
 
-	if ( len == -1 )															helpr___error(ERR_WRTE);
+	if ( len == -1 )															helpr___error(ERR_READ);
 
-	fat12___set(cluster, 0xfff);
+	fat12___set(old_cluster, 0xfff);
 	rootf___resize_entry(root_entry, summ);										return;
 }

@@ -8,7 +8,7 @@ fat12___get_free:
 	pushq	%rsi
 
 
-	movq	$3, %rbx
+	movq	$2, %rbx
 L_step:
 	inc	%rbx
 	

@@ -15,6 +15,7 @@ void* rootf___new_entry (byte* name, word off, dword size)
 	entry = rootf___get_free();
 
 	helpr___strcpy(entry->name, name, 11);
+	entry->attr = 0x20;
 	/* time, date and either */
 	entry->off = off;
 	entry->size = size;
