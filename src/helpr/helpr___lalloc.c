@@ -8,10 +8,10 @@ void* sbrk (int);
 
 void* helpr___lalloc (int size)
 {
-	int							chk;
+	void*						chk;
 
 
 	chk = sbrk(size);
-	if ( chk == -1 )															helpr___error(ERR_LALL);
+	if ( chk == (void*) -1 )													helpr___error(ERR_LALL);
 	else																		return sbrk(size);
 }

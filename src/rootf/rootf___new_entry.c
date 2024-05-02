@@ -1,6 +1,11 @@
 #include "header.h"
 
 
+
+extern word							data___date;
+extern word							data___time;
+
+
 struct root_entry* rootf___get_free ();
 void helpr___strcpy (unsigned char*, unsigned char*, int);
 
@@ -16,7 +21,8 @@ void* rootf___new_entry (byte* name, word off, dword size)
 
 	helpr___strcpy(entry->name, name, 11);
 	entry->attr = 0x20;
-	/* time, date and either */
+	entry->create_time = data___time;
+	entry->create_date = data___date;
 	entry->off = off;
 	entry->size = size;
 

@@ -6,7 +6,7 @@ helpr___strcmp:
 	pushq	%rdx
 
 
-	movq	%rcx, %rdx
+	movq	%rdx, %rcx
 	andq	$0b0111, %rdx
 
 L_quad_cmp:

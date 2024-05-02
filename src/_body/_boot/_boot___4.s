@@ -6,6 +6,7 @@ _boot___4:
 	movq	%rbp, %rsp
 
 	call	image___load
+	call	helpr___get_time
 
 	movq	%rbp, %rdi
 	movq	data___procedure, %rsi

@@ -5,6 +5,9 @@ void*							data___program_name_end;
 int								data___image_fd;
 void*							data___procedure;
 
+word							data___date;
+word							data___time;
+
 unsigned char					data___buffer;
 
 

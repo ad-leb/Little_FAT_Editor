@@ -15,7 +15,7 @@ struct root_entry* rootf___get_by_name (unsigned char* name)
 	entry = data___root_table;
 	while (1) {
 		if ( entry->name[0] == 0 )												return NULL;
-		if ( helpr___strcmp(entry->name, name, 11) == 0 )						return entry;
+		if ( helpr___strcmp(name, entry->name, 11) == 0 )						return entry;
 		else 	entry += 1;
 	}
 }

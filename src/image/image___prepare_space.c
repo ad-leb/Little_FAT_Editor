@@ -2,7 +2,7 @@
 
 
 extern int						data___root_size;
-extern void*					data___root_off;
+extern int						data___root_off;
 
 extern int						data___data_off;
 
