@@ -51,7 +51,7 @@ HELPR_RAW::= $(shell find $(SRCDIR) -name helpr___* | sed -e 's/.*\///' -e 's/\.
 
 
 TEST_IMG::= floppy.img
-TEST_FILES::= Makefile
+TEST_FILES::= obj
 TEST_MODULES::= $(_BOOT) $(_BODY) $(INTER) $(HELPR) $(IMAGE) $(FAT12) $(ROOTF)
 
 
@@ -78,7 +78,7 @@ down:
 	@rm -fd $(OBJDIR)/*
 	@rm -fd $(BINDIR)/*
 clean:
-	@for f in *; do if [ ! -d $$f ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ]; then rm -f $$f; fi; done
+	@for f in *; do if [ ! -d $$f ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ] && [ ! $$f = 'floppy.img' ]; then rm -f $$f; fi; done
 
 
 edit:

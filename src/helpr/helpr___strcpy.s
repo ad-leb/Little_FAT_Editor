@@ -3,6 +3,8 @@
 
 .text
 helpr___strcpy:
+	cmpq	$8, %rdx
+	jl	L_byte_copy
 	movq	%rdx, %rcx		# |
 	andq	$0b111, %rdx		# --> 'rdx' takes a low 3 bits (<8), 'rcx' takes all the rest (>8)
 

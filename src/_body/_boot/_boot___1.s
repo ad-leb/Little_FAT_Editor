@@ -12,14 +12,14 @@ _boot___1:
 L_check_pull:
 	movq	(%rbp), %rsi
 	leaq	pull_name, %rdi
-	movq	$4, %rcx
+	movq	$4, %rdx
 	call	helpr___strcmp
 	orb	%al, %al
 	jz	L_pull_case
 L_check_push:
 	movq	(%rbp), %rsi
 	leaq	push_name, %rdi
-	movq	$4, %rcx
+	movq	$4, %rdx
 	call	helpr___strcmp
 	orb	%al, %al
 	jz	L_push_case

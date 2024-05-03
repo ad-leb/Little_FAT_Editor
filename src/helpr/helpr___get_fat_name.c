@@ -54,6 +54,7 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 		}
 		ch &= 0x5f;
 		if ( ch >= 'A' && ch <= 'Z' )			*(to + pos) = ch;
+		if ( ch >= 0x30 && ch <= 0x39 )			*(to + pos) = ch;
 
 
 		ch = *(from + pos + 1);

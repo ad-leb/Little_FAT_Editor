@@ -3,9 +3,8 @@
 
 .text
 helpr___strcmp:
-	pushq	%rdx
-
-
+	cmpq	$8, %rdx
+	jl	L_byte_cmp
 	movq	%rdx, %rcx
 	andq	$0b0111, %rdx
 
@@ -21,7 +20,6 @@ L_byte_cmp:
 L_done:
 	xorq	%rax, %rax
 L_fin:
-	popq	%rdx
 	ret
 
 
