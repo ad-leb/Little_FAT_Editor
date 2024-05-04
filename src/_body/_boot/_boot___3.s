@@ -5,9 +5,48 @@
 .text
 _boot___3:
 
-# There should be a parameter checking
+L_look_for_params:
+	movq	(%rbp), %rsi
+		lodsb
+	cmpb	$0x2d, %al
+	jnz	L_next
 
-	nop
-	nop
 
+	stc
+L_check_param:
+		lodsb
+L_if_its_zero:
+	orb	%al, %al
+	jz	L_fin
+L_if_its_clear:
+	cmpb	$0x63, %al	
+	jz	L_clear_case
+L_if_its_verbose:
+	cmpb	$0x76, %al
+	jz	L_verbose_case
+L_unknown_param:
+	jc	_boot___error_param
+	jmp	L_next
+
+
+
+L_clear_case:
+	orb	$0x01, data___params
+	clc
+	jmp	L_check_param
+L_verbose_case:
+	orb	$0x02, data___params
+	clc
+	jmp	L_check_param
+
+
+L_fin:
+	addq	$8, %rbp
+	jmp	L_look_for_params
+
+
+
+
+
+L_next:
 	jmp	_boot___4

@@ -1,6 +1,7 @@
 .global		_boot___error_procedure
 .global		_boot___error_count
 .global		_boot___error_imagefile
+.global		_boot___error_param
 
 
 .data
@@ -10,6 +11,8 @@ count_msg:	.asciz	"Too few arguments\n\n\t"
 count_msg_end:
 image_msg:	.asciz	"Can't open file of image. Is it real?\n\n\t"
 image_msg_end:
+param_msg:	.asciz	"Noah, I don't know, what this params should do..\n\n\t"
+param_msg_end:
 help_msg:	.asciz	"  [ procedure ]  [ image filename ]  <parameters>  <files>\n\n"
 help_msg_end:
 
@@ -30,6 +33,11 @@ _boot___error_count:
 _boot___error_imagefile:
 	leaq	image_msg, %rsi
 	leaq	image_msg_end, %rdx
+	subq	%rsi, %rdx
+	jmp	_boot___error_print
+_boot___error_param:
+	leaq	param_msg, %rsi
+	leaq	param_msg_end, %rdx
 	subq	%rsi, %rdx
 	jmp	_boot___error_print
 

@@ -14,6 +14,7 @@ void rootf___resize_entry (void*, dword);
 int fat12___get_free ();
 int	fat12___get_next ();
 void fat12___set (int, int);
+void fat12___cut_chain (int);
 
 void helpr___error (int);
 void helpr___memreset (void*, int);
@@ -42,6 +43,7 @@ void inter___write_file (unsigned char* file_name, int file_d)
 		root_entry = rootf___new_entry(file_name, cluster, 0);
 	} else {
 		cluster = rootf___get_first_cluster(root_entry);
+		fat12___cut_chain(cluster);
 	}
 	old_cluster = cluster;
 

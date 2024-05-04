@@ -37,3 +37,7 @@ int								data___cluster_size;
 /****************************************************************/
 void*							data___fat_table;
 void*							data___root_table;
+
+
+
+int								data___params = 0;

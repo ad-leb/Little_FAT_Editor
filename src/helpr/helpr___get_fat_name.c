@@ -52,9 +52,9 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 			case '~' :		*(to + pos) = ch;		break;
 			default	 :								break;
 		}
+		if ( ch >= '0' && ch <= '9' )			*(to + pos) = ch;
 		ch &= 0x5f;
 		if ( ch >= 'A' && ch <= 'Z' )			*(to + pos) = ch;
-		if ( ch >= 0x30 && ch <= 0x39 )			*(to + pos) = ch;
 
 
 		ch = *(from + pos + 1);
