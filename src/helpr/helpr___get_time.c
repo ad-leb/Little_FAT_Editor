@@ -1,15 +1,16 @@
 #include "header.h"
-#include <time.h>
 
 
 extern word							data___date;
 extern word							data___time;
 
+long time (long*);
+
 
 
 void helpr___get_time ()
 {
-	time_t						raw;
+	long						raw;
 	int							year;
 	int							month;
 	int							day;
@@ -36,7 +37,7 @@ void helpr___get_time ()
 		}
 	}
 
-	month = 1;
+	month = 0;
 	if ( day > 31 )				 	  { month++; day -= 31; }
 	if ( day > 29 && year % 4 == 0 )  { month++; day -= 29; }	
 	if ( day > 28 && year % 4 != 0 )  { month++; day -= 28; }
@@ -63,7 +64,7 @@ void helpr___get_time ()
 
 
 	data___date = 0;
-	data___date |= year - 80;
+	data___date |= year - 60;
 	data___date <<= 4;
 	data___date |= month + 1;
 	data___date <<=5;

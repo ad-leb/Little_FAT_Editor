@@ -17,3 +17,10 @@
 #define ERR_NFND				0006
 #define ERR_CLOS				0007
 #define ERR_CDIR				0010
+
+
+
+
+/* Macros */
+#define PARAM_CLEAR    (data___params & 00001)
+#define PARAM_VERBO    (data___params & 00010)
