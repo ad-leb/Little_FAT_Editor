@@ -70,7 +70,7 @@ init:
 	@[ ! -e $(BINDIR) ] && mkdir $(BINDIR) || true
 
 
-zen: clean down
+zen: down clean
 	@rm -rf $(OBJDIR) 
 	@rm -rf $(BINDIR)
 down:
@@ -78,7 +78,7 @@ down:
 	@rm -fd $(OBJDIR)/*
 	@rm -fd $(BINDIR)/*
 clean:
-	@for f in *; do if [ ! -d $$f ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ] && [ ! $$f = 'floppy.img' ]; then rm -f $$f; fi; done
+	@for f in *; do if [ ! $$f = $(SRCDIR) ] && [ ! $$f = $(OBJDIR) ] && [ ! $$f = $(BINDIR) ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ] && [ ! $$f = 'floppy.img' ]; then rm -fr $$f; fi; done
 
 
 edit:
@@ -92,11 +92,11 @@ test_build: init $(TEST_MODULES)
 tpush: test_build
 	$(BINDIR)/$(DBG) push $(TEST_IMG) $(TEST_FILES)
 tpull: test_build
-	$(BINDIR)/$(DBG) pull $(TEST_IMG) $(TEST_FILES)
+	$(BINDIR)/$(DBG) pull $(TEST_IMG) all
 dpush: test_build
 	gdb --args $(BINDIR)/$(DBG) push $(TEST_IMG) $(TEST_FILES)
 dpull: test_build
-	gdb --args $(BINDIR)/$(DBG) pull $(TEST_IMG) $(TEST_FILES)
+	gdb --args $(BINDIR)/$(DBG) pull $(TEST_IMG) all
 
 
 
