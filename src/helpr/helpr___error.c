@@ -4,6 +4,9 @@
 void helpr___exit (int);
 
 
+/* Yeah, it must be done in the end. I dunno, how it gonna work yet */
+
+
 void helpr___error (int code)
 {
 	switch ( code ) {

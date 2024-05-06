@@ -8,6 +8,9 @@ long time (long*);
 
 
 
+/* Get a real current time and convert it to FAT format, using in Root entries */
+
+
 void helpr___get_time ()
 {
 	long						raw;

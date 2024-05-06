@@ -1,7 +1,18 @@
 .global		helpr___get_outter_name
 
+# void		helpr___get_outter_name (unsigned char* TO, unsigned char* FROM);
+
+#	Convert internal 11-bytes FAT name to more handy format
+
 
 .text
+#***************************************************************
+#			get_outter_name
+#_______________________________________________________________
+# input:	rdi -- buffer of outter name [TO];
+#		rsi -- string FAT name [FROM];
+# output:	_no result_
+#***************************************************************
 helpr___get_outter_name:
 	movq	%rsi, %rdx
 	movq	$8, %rcx

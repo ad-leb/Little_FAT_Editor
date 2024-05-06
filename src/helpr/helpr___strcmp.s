@@ -1,7 +1,20 @@
 .global		helpr___strcmp
 
+# int		helpr____strcmp (unsigned char* FIRST, unsigned char* SECOND, int LEN);
+
+# 	Just compare two string. By setting LEN-field, there is
+# 	can limit a length of comparing string.		       
+
 
 .text
+#***************************************************************
+#			strcmp
+#_______________________________________________________________
+# input:	rdi -- first string [FIRST];
+#		rsi -- second string [SECOND];
+#		rdx -- length to compare [LEN];
+# output:	rax -- 0 if strings are equal, or unequal bytes;
+#***************************************************************
 helpr___strcmp:
 	cmpq	$8, %rdx
 	jl	L_byte_cmp

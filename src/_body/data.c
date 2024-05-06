@@ -2,6 +2,7 @@
 
 unsigned char					data___program_name[256];
 void*							data___program_name_end;
+unsigned char					data___image_name[256];
 int								data___image_fd;
 void*							data___procedure;
 

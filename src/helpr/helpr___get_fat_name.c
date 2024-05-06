@@ -1,4 +1,6 @@
 
+/* Convert a real long name of file to internal 11-bytes FAT name */
+
 
 void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 {

@@ -22,5 +22,6 @@
 
 
 /* Macros */
-#define PARAM_CLEAR    (data___params & 00001)
-#define PARAM_VERBO    (data___params & 00010)
+#define PARAM_CLEAR		(data___params & 00001)
+#define PARAM_VERBO		(data___params & 00010)
+#define PARAM_DECOP		(data___params & 00100)
