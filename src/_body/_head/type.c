@@ -15,29 +15,29 @@ struct image_info {
 	byte						empty[3]; 	/* jump instruction 	*/
 
 
-    byte						oem_t[8];
+    byte						oem[8];
 
     struct bpb {
-    	word						bps;		/* Bytes Per Sector 	*/
-    	byte						spc;		/* Sectors Per Cluster 	*/
-    	word						rs;			/* Reserved Sectors 	*/
-    	byte						nf;			/* Number Of FATs 		*/
-    	word						re;			/* Root Entries 		*/
-    	word						ts;			/* Total Sectors		*/
-    	byte						md;			/* Media				*/
-    	word						spf;		/* Sectors Per FAT		*/
-    	word						spt;		/* Sectors Per Track	*/
-    	word						hpc;		/* Head Per Cylinder	*/
-    	dword						hs;			/* Hidden Sectors		*/
-    	dword						tsb;		/* Total Sectors bigger	*/
+    	word					bps;		/* Bytes Per Sector 	*/
+    	byte					spc;		/* Sectors Per Cluster 	*/
+    	word					rs;			/* Reserved Sectors 	*/
+    	byte					nf;			/* Number Of FATs 		*/
+    	word					re;			/* Root Entries 		*/
+    	word					ts;			/* Total Sectors		*/
+    	byte					md;			/* Media				*/
+    	word					spf;		/* Sectors Per FAT		*/
+    	word					spt;		/* Sectors Per Track	*/
+    	word					hpc;		/* Head Per Cylinder	*/
+    	dword					hs;			/* Hidden Sectors		*/
+    	dword					tsb;		/* Total Sectors bigger	*/
     } bpb;
 
     struct bs {
-    	byte						dn;			/* Drive Number			*/
-    	byte						uu;			/* unused				*/
-    	byte						ebs;		/* Boot Signature		*/
-    	dword						sn;			/* Serial Number		*/
-    	byte						vl[11];		/* Volume Label			*/
-    	byte						fs[8];		/* FileSystem			*/
+    	byte					dn;			/* Drive Number			*/
+    	byte					uu;			/* unused				*/
+    	byte					ebs;		/* Boot Signature		*/
+    	dword					sn;			/* Serial Number		*/
+    	byte					vl[11];		/* Volume Label			*/
+    	byte					fs[8];		/* FileSystem			*/
     }bs;
 };

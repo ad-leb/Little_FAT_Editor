@@ -24,6 +24,9 @@ L_if_its_clear:
 L_if_its_verbose:
 	cmpb	$0x76, %al
 	jz	L_verbose_case
+L_if_its_decprint:
+	cmpb	$0x64, %al
+	jz	L_decprint_case
 L_unknown_param:
 	jc	_boot___error_param
 	jmp	L_next
@@ -36,6 +39,10 @@ L_clear_case:
 	jmp	L_check_param
 L_verbose_case:
 	orb	$0x02, data___params
+	clc
+	jmp	L_check_param
+L_decprint_case:
+	orb	$0x04, data___params
 	clc
 	jmp	L_check_param
 

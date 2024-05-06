@@ -1,12 +1,14 @@
 #include <defs.h>
 
 
-void* rootf___get_by_name(unsigned char*);
+void* rootf___get_by_name (unsigned char*);
+void* rootf___get_by_index (int);
 void* rootf___get_first_entry ();
 void* rootf___get_next_entry (void*);
 
-void helpr___error (int);
+int helpr___atoi (unsigned char*);
 int helpr___strcmp (unsigned char*, unsigned char*, int);
+void helpr___error (int);
 
 void inter___read_file (void*);
 
@@ -34,7 +36,11 @@ int pull (unsigned char* files[])
 		}
 	} else {
 		for (int i = 0; files[i] != NULL; i++) {
-			if ( (entry = rootf___get_by_name(files[i])) == NULL )				helpr___error(ERR_NFND);
+			if ( *files[i] <= 0x39 && *files[i] >= 0x30 ) {
+				if ( (entry = rootf___get_by_index(helpr___atoi(files[i]))) == NULL)
+																				helpr___error(ERR_NFND);
+			} else if ( (entry = rootf___get_by_name(files[i])) == NULL )	  { helpr___error(ERR_NFND); }
+
 			inter___read_file(entry);
 		}
 	}
