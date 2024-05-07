@@ -17,7 +17,7 @@ int write (int, unsigned char*, int);
 
 
 
-void print___image_info ()
+void inter___print_title ()
 {
 	unsigned char				line[1024];
 	unsigned char				num_buffer[32];

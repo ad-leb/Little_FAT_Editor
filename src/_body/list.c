@@ -1,8 +1,8 @@
 #include <defs.h>
 
 
-void print___image_info ();
-void print___content ();
+void inter___print_title ();
+void inter___print_content ();
 
 int helpr___strcmp (unsigned char*, unsigned char*, int);
 void helpr___error (int);
@@ -11,9 +11,9 @@ void helpr___error (int);
 int list (unsigned char* request[])
 {
 	if ( helpr___strcmp(request[0], "title", 5) == 0 )
-		print___image_info();
+		inter___print_title();
 	else if ( helpr___strcmp(request[0], "content", 7) == 0 )
-		print___content();
+		inter___print_content();
 	else
 		helpr___error(ERR_UNKN);
 

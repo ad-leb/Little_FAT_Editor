@@ -11,7 +11,6 @@ BINDIR::= bin
 RAWDIR::= $(OBJDIR)/raw
 _BODYDIR::= $(SRCDIR)/_body
 INTERDIR::= $(SRCDIR)/inter
-PRINTDIR::= $(SRCDIR)/print
 IMAGEDIR::= $(SRCDIR)/image
 FAT12DIR::= $(SRCDIR)/fat
 ROOTFDIR::= $(SRCDIR)/rootf
@@ -19,7 +18,7 @@ HELPRDIR::= $(SRCDIR)/helpr
 _BOOTDIR::= $(_BODYDIR)/_boot
 _HEADDIR::= $(_BODYDIR)/_head
 
-VPATH= $(SRCDIR):$(_BOOTDIR):$(_BODYDIR):$(IMAGEDIR):$(INTERDIR):$(PRINTDIR):$(FAT12DIR):$(ROOTFDIR):$(HELPRDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
+VPATH= $(SRCDIR):$(_BOOTDIR):$(_BODYDIR):$(IMAGEDIR):$(INTERDIR):$(FAT12DIR):$(ROOTFDIR):$(HELPRDIR):$(RAWDIR):$(OBJDIR):$(BINDIR)
 
 
 
@@ -33,7 +32,6 @@ IMAGE::= image.o
 FAT12::= fat12.o
 ROOTF::= rootf.o
 HELPR::= helpr.o
-PRINT::= print.o
 
 
 
@@ -42,7 +40,6 @@ PRINT::= print.o
 _BODY_RAW::= $(shell find $(_BODYDIR) -maxdepth 1 -type f | grep .*.[cs]$$ | sed -e 's/.*\///' -e 's/\..*/.o/')
 _BOOT_RAW::= $(shell find $(SRCDIR) -name _boot___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 INTER_RAW::= $(shell find $(SRCDIR) -name inter___* | sed -e 's/.*\///' -e 's/\..*/.o/')
-PRINT_RAW::= $(shell find $(SRCDIR) -name print___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 IMAGE_RAW::= $(shell find $(SRCDIR) -name image___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 FAT12_RAW::= $(shell find $(SRCDIR) -name fat12___* | sed -e 's/.*\///' -e 's/\..*/.o/')
 ROOTF_RAW::= $(shell find $(SRCDIR) -name rootf___* | sed -e 's/.*\///' -e 's/\..*/.o/')
@@ -55,7 +52,7 @@ HELPR_RAW::= $(shell find $(SRCDIR) -name helpr___* | sed -e 's/.*\///' -e 's/\.
 
 TEST_IMG::= floppy.img
 TEST_FILES::= obj
-TEST_MODULES::= $(_BOOT) $(_BODY) $(INTER) $(HELPR) $(IMAGE) $(FAT12) $(ROOTF) $(PRINT)
+TEST_MODULES::= $(_BOOT) $(_BODY) $(INTER) $(HELPR) $(IMAGE) $(FAT12) $(ROOTF)
 
 
 
@@ -123,8 +120,6 @@ $(_BODY): $(_BODY_RAW)
 	ld -r $(addprefix $(RAWDIR)/, $(_BODY_RAW)) -o $(OBJDIR)/$@
 $(INTER): $(INTER_RAW)
 	ld -r $(addprefix $(RAWDIR)/, $(INTER_RAW)) -o $(OBJDIR)/$@
-$(PRINT): $(PRINT_RAW)
-	ld -r $(addprefix $(RAWDIR)/, $(PRINT_RAW)) -o $(OBJDIR)/$@
 $(IMAGE): $(IMAGE_RAW)
 	ld -r $(addprefix $(RAWDIR)/, $(IMAGE_RAW)) -o $(OBJDIR)/$@
 $(FAT12): $(FAT12_RAW)

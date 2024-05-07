@@ -10,7 +10,7 @@ void helpr___error (int);
 
 int push (unsigned char* file_name[])
 {
-	if ( file_name[0] != NULL ) {
+	if ( file_name != NULL ) {
 		for (int i = 0; file_name[i] != NULL; i++) {
 			switch ( check_file_type(file_name[i]) ) {
 				case 0	:		push_file(file_name[i]);			break;

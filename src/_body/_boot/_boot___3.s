@@ -7,12 +7,13 @@ _boot___3:
 
 L_look_for_params:
 	movq	(%rbp), %rsi
+	orq	%rsi, %rsi
+	jz	L_next
 		lodsb
 	cmpb	$0x2d, %al
 	jnz	L_next
 
 
-	stc
 L_check_param:
 		lodsb
 L_if_its_zero:
@@ -28,8 +29,7 @@ L_if_its_decprint:
 	cmpb	$0x64, %al
 	jz	L_decprint_case
 L_unknown_param:
-	jc	_boot___error_param
-	jmp	L_next
+	jmp	_boot___error_param
 
 
 

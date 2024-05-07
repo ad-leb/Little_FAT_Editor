@@ -13,7 +13,7 @@ int helpr___strcat (unsigned char*, unsigned char*, int);
 int write (int, unsigned char*, int);
 
 
-void print___content ()
+void inter___print_content ()
 {
 	int							curr = 0;
 	void*						entry;
