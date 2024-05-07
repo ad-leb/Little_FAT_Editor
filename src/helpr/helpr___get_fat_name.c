@@ -25,11 +25,10 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
     for (i = 0; ch != 0; i++) {
     	ch = *(from + i);
     	if ( ch == '.') {
-			if ( i < 8 ) 	last = 5;
-			else			last = i - 3;		/* Last part of name -- will be used in name building */
+			last = i - 3;		/* Last part of name -- will be used in name building */
     		i++;
-    		for (pos = 8; pos < 11; i++) {
-    			ch = *(from + i);
+    		for (int j = i, pos = 8; pos < 11; j++) {
+    			ch = *(from + j);
     			if ( ch == 0 ) 						break;
     			ch &= 0x5f;
     			if ( ch >= 'A' && ch <= 'Z' ) 	*(to + pos++) = ch;
@@ -38,6 +37,7 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
     	}
     }
 	if ( last == 0 ) 							last = i - 1 - 3;
+	if ( last < 8 )								last = 5;
     while ( pos < 11 )							*(to + pos++) = ' ';
 
 
