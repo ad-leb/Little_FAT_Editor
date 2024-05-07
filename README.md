@@ -82,3 +82,42 @@ Or you can just ask to pull all files from image:
 lfe pull floppy.img all
 ```
 All choosen files restore to new dir, named as "from\_*name-of-imagefile*".
+
+
+
+
+
+
+# How to **make**
+Make file is really big for this little project, so I put here some instructions for comfort using:
+
+
+
+## Just make
+To get a finished program, open directory of this file in your command shell and print commnad 'make':
+```
+make
+```
+After build, finished program will locate in *bin* directory. You can put this file to */usr/local/bin* or */usr/bin* for access it from anywhere.
+
+
+
+## Stucture and method
+Makefile operates with **raw files** (the object files of each text file from *SRCDIR*) and **modules** (the collection of raw files, based on their functions and using data). Directory ierarchy is no matter for 'make', and can be using only for human readability: Makefile has been wrotten to erase it, so for 'make' all text files locate in one directory. 
+
+There are few modules:
+- **\_boot** | assebly code, that build a file list, check for pararmeters, choose procedure, load tables, save names of image and program and provide primal error check;
+- **\_body** | base of program;
+- **inter** | base interface of program functionality, but honnestly -- just big text code, makin A LOT and important;
+- **image** | provide base operations on image at all, like load tables, writing data and etc.;
+- **fat12** | provide base operations on FA12 table;
+- **rootf** | provide base operations on Root table;
+- **helpr** | *helper* is just a barn of helpful procedures, like a string or memory allocations procedures.
+
+Needed (relating) **raw files** found by their names: first part of them is signify their module (except **\_body**). This marks are really handy when looking for symbols, that you forgot. 
+
+
+
+
+### I think, it's all
+
