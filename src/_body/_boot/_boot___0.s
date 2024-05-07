@@ -8,11 +8,10 @@ _boot___0:
 	movq	%rsp, %rbp
 	movq	(%rbp), %rdx
 
+
 	addq	$8, %rbp
 	movq	(%rbp), %rsi
 	leaq	data___program_name, %rdi
-
-
 
 	movq	$0xff, %rcx
 L_copy_loop:
@@ -21,8 +20,7 @@ L_copy_loop:
 	jz	L_fin
 		stosb
 
-	decq	%rcx
-	jnz	L_copy_loop
+	loop	L_copy_loop
 L_fin:
 	movq	%rdi, data___program_name_end
 

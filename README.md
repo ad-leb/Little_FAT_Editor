@@ -81,3 +81,4 @@ Or you can just ask to pull all files from image:
 ```
 lfe pull floppy.img all
 ```
+All choosen files restore to new dir, named as "from\_*name-of-imagefile*".
