@@ -3,7 +3,7 @@
 
 Editor for file image of FAT12. I hope, it will grow to be able to work with other FAT systems and more.
 
-I made it as an alternative to mount-way image editing: I needed to load and replace files to image by lot of times an hours, and using 'mount' command, 'cp', 'ls' and 'unmount' every time feels realy undue. As the same time, becouse my work was closely related with filesystems, I wanted to make an almost fully editor for image file based on simple file read-write interface, without mountings. 
+I made it as an alternative to mount-way image editing: I needed to load and replace files to image lot of times an hour, and using 'mount' command, 'cp', 'ls' and 'unmount' every time feels realy undue. As the same time, because my work was closely related with filesystems, I wanted to make an almost fully editor for image file based on simple file read-write interface, without mountings. 
 
 ## Portings
 
