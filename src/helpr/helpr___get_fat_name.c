@@ -12,6 +12,14 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 
 
 
+	for (int i = 0; *(from + i) != 0; i++) {
+		if ( (*(from + i) == '/') && (*(from + i + 1) != 0) ) {
+			from += i + 1;
+			i = 0;
+		}
+	}
+
+
 
     /* 3 characters of file extension */
     for (i = 0; ch != 0; i++) {
@@ -98,4 +106,5 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 			ch = *(from + last++);
 		}
 	}
+	while ( pos < 8 ) 						*(to + pos++) = ' ';
 }
