@@ -10,7 +10,7 @@ void*							data___procedure;
 word							data___date;
 word							data___time;
 
-unsigned char					data___buffer;
+void*							data___buffer;
 
 
 struct image_info				data___image_info;

@@ -29,6 +29,7 @@ void inter___print_title ()
 	len = helpr___strcat(line, separator, 0);
 	len = helpr___strcat(line, data___image_info.oem, 8);
 	len = helpr___strcat(line, terminator, 0);
+	len = helpr___strcat(line, terminator, 0);
 	if ( write(1, line, len) != len ) 											helpr___error(ERR_WRTE);
 
 	helpr___memreset(line, 1024);
