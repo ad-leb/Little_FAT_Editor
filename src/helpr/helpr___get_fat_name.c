@@ -6,27 +6,29 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 {
 	unsigned char				ch = 1;
 	int							pos;
-	int							last;
+	int							i;
+	int							last = 0;
 
 
 
 
 
     /* 3 characters of file extension */
-    for (int i = 0; ch != 0; i++) {
+    for (i = 0; ch != 0; i++) {
     	ch = *(from + i);
     	if ( ch == '.') {
 			last = i - 3;		/* Last part of name -- will be used in name building */
     		i++;
     		for (pos = 8; pos < 11; i++) {
     			ch = *(from + i);
-    			if ( ch == 0 ) 					break;
+    			if ( ch == 0 ) 						break;
     			ch &= 0x5f;
     			if ( ch >= 'A' && ch <= 'Z' ) 	*(to + pos++) = ch;
     		}
     		break;
     	}
     }
+	if ( last == 0 ) 							last = i - 1 - 3;
     while ( pos < 11 )							*(to + pos++) = ' ';
 
 
