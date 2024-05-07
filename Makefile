@@ -23,7 +23,7 @@ VPATH= $(SRCDIR):$(_BOOTDIR):$(_BODYDIR):$(IMAGEDIR):$(INTERDIR):$(FAT12DIR):$(R
 
 
 
-TGT::= prog
+TGT::= lfe
 DBG::= debug
 _BOOT::= _boot.o
 _BODY::= _body.o
@@ -32,6 +32,8 @@ IMAGE::= image.o
 FAT12::= fat12.o
 ROOTF::= rootf.o
 HELPR::= helpr.o
+
+ALL_MODULES::= $(_BOOT) $(_BODY) $(INTER) $(HELPR) $(IMAGE) $(FAT12) $(ROOTF)
 
 
 
@@ -63,7 +65,8 @@ TEST_MODULES::= $(_BOOT) $(_BODY) $(INTER) $(HELPR) $(IMAGE) $(FAT12) $(ROOTF)
 
 
 
-all: init $(TGT)
+all: init $(ALL_MODULES)
+	ld -e _boot -lc --dynamic-linker=/lib64/ld-linux-x86-64.so.2 -o $(BINDIR)/$(TGT) $(addprefix $(OBJDIR)/, $(ALL_MODULES))
 init:
 	@[ ! -e $(OBJDIR) ] && mkdir $(OBJDIR) || true
 	@[ ! -e $(RAWDIR) ] && mkdir $(RAWDIR) || true
