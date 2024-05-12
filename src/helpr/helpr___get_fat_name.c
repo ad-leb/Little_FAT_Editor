@@ -1,111 +1,78 @@
 
-/* Convert a real long name of file to internal 11-bytes FAT name */
+unsigned char helpr___get_allowed_char (unsigned char);
 
 
 void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 {
-	unsigned char				ch = 1;
-	int							pos;
-	int							i;
-	int							last = 0;
+	int							to_pos;
+	int							from_pos;
+	int							name_len = -1;
+	unsigned char				ch;
 
 
 
+	/* get filename without path */
+	for (from_pos = 0; *(from + from_pos) != 0; from_pos++) 
+		if ( *(from + from_pos) == '/' && *(from + from_pos + 1) != 0 )		  { from += from_pos + 1;
+																	from_pos = 0;			}
 
-	for (int i = 0; *(from + i) != 0; i++) {
-		if ( (*(from + i) == '/') && (*(from + i + 1) != 0) ) {
-			from += i + 1;
-			i = 0;
-		}
+
+
+	/* fill all name by space characters */
+	for (from_pos = 0; from_pos < 11; from_pos++)
+		*(to + from_pos) = ' ';
+
+
+	/* get extension of file */
+	for (from_pos = 0, to_pos = 8; *(from + from_pos ) != 0; from_pos++)
+		if ( *(from + from_pos) == '.' ) 								  { name_len = from_pos++;
+																	break;			}
+	for (int count = 0; *(from + from_pos) != 0 && count < 3; from_pos++) {
+		ch = helpr___get_allowed_char(*(from + from_pos));
+		if ( ch ) 		*(to + to_pos + count++) = ch;
 	}
+	if ( name_len == -1 )											name_len = from_pos;
 
 
 
-    /* 3 characters of file extension */
-    for (i = 0; ch != 0; i++) {
-    	ch = *(from + i);
-    	if ( ch == '.') {
-			last = i - 3;		/* Last part of name -- will be used in name building */
-    		i++;
-    		for (int j = i, pos = 8; pos < 11; j++) {
-    			ch = *(from + j);
-    			if ( ch == 0 ) 						break;
-    			ch &= 0x5f;
-    			if ( ch >= 'A' && ch <= 'Z' ) 	*(to + pos++) = ch;
-    		}
-    		break;
-    	}
-    }
-	if ( last == 0 ) 							last = i - 1 - 3;
-	if ( last < 8 )								last = 5;
-    while ( pos < 11 )							*(to + pos++) = ' ';
-
-
-
-	/* First 5 characters of file name */
-	ch = *(from);
-	for (pos = 0; pos < 5 && ch != 0; pos++) {
-		if ( ch == '.' )							break;
-
-		switch ( ch ) {
-			case ' ' :
-			case '!' :
-			case '$' :
-			case '%' :
-			case '&' :
-			case '(' :
-			case ')' :
-			case '-' :
-			case '_' :
-			case '@' :
-			case '`' :
-			case '\'':
-			case '^' :
-			case '{' :
-			case '}' :
-			case '~' :		*(to + pos) = ch;		break;
-			default	 :								break;
-		}
-		if ( ch >= '0' && ch <= '9' )			*(to + pos) = ch;
-		ch &= 0x5f;
-		if ( ch >= 'A' && ch <= 'Z' )			*(to + pos) = ch;
-
-		ch = *(from + pos + 1);
+	/* get first 5 characters of name */
+	for (from_pos = 0, to_pos = 0; to_pos < 5 && from_pos < name_len; from_pos++) {
+		ch = helpr___get_allowed_char(*(from + from_pos));
+		if ( ch )		*(to + to_pos++) = ch;
 	}
-
-	if ( ch == '.' ) {
-		while ( pos < 8 ) 						*(to + pos++) = ' ';
-	} else {
-	/* Last 3 characters of file name */
-		ch = *(from + last++);
-		for (pos = 5; pos < 8 && ch != 0; pos++) {
-			if ( ch == '.' )							break;
-		
-			switch ( ch ) {
-				case ' ' :
-				case '!' :
-				case '$' :
-				case '%' :
-				case '&' :
-				case '(' :
-				case ')' :
-				case '-' :
-				case '_' :
-				case '@' :
-				case '`' :
-				case '\'':
-				case '^' :
-				case '{' :
-				case '}' :
-				case '~' :		*(to + pos) = ch;		break;
-				default	 :								break;
-			}
-			if ( ch >= '0' && ch <= '9' )			*(to + pos) = ch;
-			ch &= 0x5f;
-			if ( ch >= 'A' && ch <= 'Z' )			*(to + pos) = ch;
-		
-			ch = *(from + last++);
-		}
+	/* get last 3 characters of name */
+	if ( from_pos > name_len )												from_pos = name_len;
+	for (to_pos = 5; to_pos < 8 && from_pos < name_len; from_pos++) {
+		ch = helpr___get_allowed_char(*(from + from_pos));
+		if ( ch )		*(to + to_pos++) = ch;
 	}
-	while ( pos < 8 ) 						*(to + pos++) = ' ';
+}
+
+
+
+
+unsigned char helpr___get_allowed_char (unsigned char ch)
+{
+	switch ( ch ) {
+		case ' ' :
+		case '!' :
+		case '$' :
+		case '%' :
+		case '&' :
+		case '(' :
+		case ')' :
+		case '-' :
+		case '_' :
+		case '@' :
+		case '`' :
+		case '\'':
+		case '^' :
+		case '{' :
+		case '}' :
+		case '~' :																return ch;
+		default	 :	if ( ch >= '0' && ch <= '9' )								return ch;
+					ch &= 0x5f;
+					if ( ch >= 'A' && ch <= 'Z' )								return ch;
+					else														return 0;
+	}
 }
