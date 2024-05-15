@@ -9,7 +9,7 @@
 #***************************************************************
 #			atoi
 #_______________________________________________________________
-# input:	rdi -- string of array number [ARRAY];
+# input:	rdi -- string of array number [ARRAY] (0 ended);
 # output:	rax -- converted integer
 #***************************************************************
 helpr___atoi:

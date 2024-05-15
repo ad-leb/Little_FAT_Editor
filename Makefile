@@ -90,16 +90,32 @@ run:
 	@./$(BINDIR)/$(TGT)
 
 
+
+
 test_build: init $(TEST_MODULES)
 	ld -e _boot -lc --dynamic-linker=/lib64/ld-linux-x86-64.so.2 -o $(BINDIR)/$(DBG) $(addprefix $(OBJDIR)/, $(TEST_MODULES))
+
 tpush: test_build
-	$(BINDIR)/$(DBG) push $(TEST_IMG) $(TEST_FILES)
+	$(BINDIR)/$(DBG) push $(TEST_IMG) -c $(TEST_FILES)
 tpull: test_build
 	$(BINDIR)/$(DBG) pull $(TEST_IMG) all
+tlist: test_build
+	$(BINDIR)/$(DBG) list $(TEST_IMG) content
+tlistt: test_build
+	$(BINDIR)/$(DBG) list $(TEST_IMG) title
+tborn: test_build
+	$(BINDIR)/$(DBG) born keks -c
+
 dpush: test_build
-	gdb --args $(BINDIR)/$(DBG) push $(TEST_IMG) $(TEST_FILES)
+	gdb --args $(BINDIR)/$(DBG) push $(TEST_IMG) -c $(TEST_FILES)
 dpull: test_build
 	gdb --args $(BINDIR)/$(DBG) pull $(TEST_IMG) all
+dlist: test_build
+	gdb --args $(BINDIR)/$(DBG) list $(TEST_IMG) content
+dlistt: test_build
+	gdb --args $(BINDIR)/$(DBG) list $(TEST_IMG) title
+dborn: test_build
+	gdb --args $(BINDIR)/$(DBG) born keks -c sn=797979 vl=ITSPOPS
 
 
 

@@ -2,14 +2,17 @@
 
 
 .text
-_boot___2:
-	movq	(%rbp), %rsi
-	leaq	data___image_name, %rdi
 
-	movq	$0xff, %rcx
+_boot___2:
+#	1. Save name of image in "data___image_name";
+
+
+	movq	(%rbp), %rsi					# < argv[2] >
+	leaq	data___image_name, %rdi
+	movq	$0xff, %rcx					# string limit = 255 bytes
 L_copy_loop:
 		lodsb
-	orb	%al, %al
+	orb	%al, %al					# < while (c != '\0' ) >
 	jz	L_fin
 		stosb
 
@@ -18,14 +21,7 @@ L_fin:
 	movq	%rdi, data___image_name_end
 
 
-	movq	(%rbp), %rdi
-	movq	$2, %rsi
-	movq	$2, %rax
-	syscall
 
-	cmpq	$-1, %rax
-	jle	_boot___error_imagefile
-	movq	%rax, data___image_fd
-
-	addq	$8, %rbp
+L_next:
+	addq	$8, %rbp					# < next_arg >
 	jmp	_boot___3

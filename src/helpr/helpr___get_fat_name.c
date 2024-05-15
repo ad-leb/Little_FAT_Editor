@@ -13,8 +13,8 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 
 	/* get filename without path */
 	for (from_pos = 0; *(from + from_pos) != 0; from_pos++) 
-		if ( *(from + from_pos) == '/' && *(from + from_pos + 1) != 0 )		  { from += from_pos + 1;
-																	from_pos = 0;			}
+		if ( *(from + from_pos) == '/' && *(from + from_pos + 1) != 0 )	  { from += from_pos + 1;
+																			from_pos = 0;			}
 
 
 
@@ -26,12 +26,12 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 	/* get extension of file */
 	for (from_pos = 0, to_pos = 8; *(from + from_pos ) != 0; from_pos++)
 		if ( *(from + from_pos) == '.' ) 								  { name_len = from_pos++;
-																	break;			}
+																			break;			}
 	for (int count = 0; *(from + from_pos) != 0 && count < 3; from_pos++) {
 		ch = helpr___get_allowed_char(*(from + from_pos));
 		if ( ch ) 		*(to + to_pos + count++) = ch;
 	}
-	if ( name_len == -1 )											name_len = from_pos;
+	if ( name_len == -1 )													name_len = from_pos;
 
 
 
@@ -41,8 +41,8 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 		if ( ch )		*(to + to_pos++) = ch;
 	}
 	/* get last 3 characters of name */
-	if ( from_pos > name_len )												from_pos = name_len;
-	for (to_pos = 5; to_pos < 8 && from_pos < name_len; from_pos++) {
+	if ( from_pos >= name_len )												to_pos = 8;
+	for (from_pos = name_len - 3; (to_pos < 8) && (from_pos < name_len); from_pos++) {
 		ch = helpr___get_allowed_char(*(from + from_pos));
 		if ( ch )		*(to + to_pos++) = ch;
 	}

@@ -4,7 +4,9 @@ unsigned char					data___program_name[256];
 void*							data___program_name_end;
 unsigned char					data___image_name[256];
 void*							data___image_name_end;
-int								data___image_fd;
+long							data___image_fd;
+long							data___image_flags = 0;
+long							data___image_perms = 0666;
 void*							data___procedure;
 
 word							data___date;
@@ -34,7 +36,7 @@ int								data___cluster_size;
 
 /****************************************************************/
 /*																*/
-/*			Pointers to already loaded tables in memory			*/
+/*			Pointers to already loaded in memory tables			*/
 /*																*/
 /****************************************************************/
 void*							data___fat_table;

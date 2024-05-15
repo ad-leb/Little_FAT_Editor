@@ -164,6 +164,8 @@ void inter___print_title ()
 	len = helpr___strcat(line, terminator, 0);
 	if ( write(1, line, len) != len ) 											helpr___error(ERR_WRTE);
 
+
+	if ( write(1, "\n", 1) != 1 )												helpr___error(ERR_WRTE);
 	helpr___memreset(line, 1024);
 	helpr___memreset(num_buffer, 32);
 	len = helpr___strcat(line, str_dn, 0);
