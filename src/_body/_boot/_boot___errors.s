@@ -13,7 +13,7 @@ image_msg:	.asciz	"Can't open file of image. Is it real?\n\n\t"
 image_msg_end:
 param_msg:	.asciz	"Noah, I don't know, what this params should do..\n\n\t"
 param_msg_end:
-help_msg:	.asciz	"  [ procedure ]  [ image filename ]  <parameters>  <files>\n\n\n  push -- to write files in image;\n  pull -- to get files from image;\n  list -- to get info about image:\n      | - title -- get info about image (only FAT);\n      | - content -- get list of files, that include image;\n\n"
+help_msg:	.asciz	"  [ procedure ]  [ image filename ]  <parameters>  <files>\n\n\n  push -- to write files in image;\n  pull -- to get files from image;\n  list -- to get info about image:\n      | - title -- get info about image (only FAT);\n      | - content -- get list of files, that include image;\n  born -- create an image;\n\n"
 help_msg_end:
 
 
