@@ -25,8 +25,8 @@ void* helpr___lalloc (int);
 
 void image___prepare_fat ()
 {
-	data___fat_off = data___image_info.bpb.rs * SECTOR_SIZE;
-	data___fat_size = data___image_info.bpb.spf * SECTOR_SIZE;
+	data___fat_off = data___image_info.bpb.rs * data___image_info.bpb.bps;
+	data___fat_size = data___image_info.bpb.spf * data___image_info.bpb.bps;
 	data___fat2_off = data___fat_off + data___fat_size;
 
 	data___fat_table = helpr___lalloc(data___fat_size);

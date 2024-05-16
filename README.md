@@ -20,6 +20,7 @@ There is can be only one image-file to edit, only one target (if it used), but u
 > There is no good error handling yet, and in case of error there is will be code of error returned. If you use a bash, you can get this code by command *echo $?*, and check it in file in *defs.h* file, that should locate in a *\_body/\_head* directory.
 
 Supporting procedures:
+- born;
 - push;
 - pull;
 - list;
@@ -66,6 +67,11 @@ Also it can erase an image without any writings:
 ```
 lfe push floppy.img -c 
 ```
+By the way, **push** work with directories. For example, this command:
+```
+lfe push floppy.img obj/
+```
+..will say to lfe **recursively** move files into image. Because FAT12 not support directories, lfe only use them for found file in there, but not write. *(You will found a bug here).*
 
 
 
@@ -85,6 +91,41 @@ All choosen files restore to new dir, named as "from\_*name-of-imagefile*".
 
 
 
+## **born** procedure
+```
+lfe born <image-file> <parameter> <fields>
+```
+This procedure create an image with choosen parameter, as count of sectors (size of file), filesystem, etc.
+
+There is can be changing *any* field of BIOS Parameter Block, so image will be created as you set it. By default there is creating 2880 sectors (512 bytes) of FAT12 for floppy disk (field 'media' -- *md*; it has no use today, of course), where cluster equal of sector.
+
+Little example:
+```
+lfe born my_lovely.img oem=MADE\ IN spc=8
+```
+this command will create a default image with using 4KiB-cluster (*scp=8*) FAT12-filesystem on it and misterious mark for alians, who still use FAT12 today. You can check it by **list** procedure.
+
+Here a list of field-parameters for configuration:
+- **sectors=**    *integer* | count of sectors
+- **oem=**        *string*  | OEM Label
+- **bps=**        *integer* | Bytes Per Sector
+- **spc=**        *integer* | Sectors Per Cluster
+- **rs=**         *integer* | Reserved Sectors
+- **nf=**         *integer* | Number of FATs
+- **ts=**         *integer* | Total Sector (count)
+- **md=**         *integer* | Media
+- **spt=**        *integer* | Sectors Per Track
+- **hpc=**        *integer* | Heads Per Cylinder
+- **hs=**         *integer* | Hidden Sectors
+- **tsb=**        *integer* | Total Sector (count) Big
+- **dn=**         *integer* | Drive Number
+- **uu=**         *integer* | Unused (if needed, why not)
+- **ebs=**        *integer* | Extension Boot Signature
+- **sn=**         *integer* | Serial Number
+- **vl=**         *string*  | Volume label
+- **oem=**        *string*  | Filesystem label
+
+
 
 
 
@@ -102,7 +143,7 @@ After build, finished program will locate in *bin* directory. You can put this f
 
 
 
-## Stucture and method
+## Stucture
 Makefile operates with **raw files** (the object files of each text file from *SRCDIR*) and **modules** (the collection of raw files, based on their functions and using data). Directory ierarchy is no matter for 'make', and can be using only for human readability: Makefile has been wrotten to erase it, so for 'make' all text files locate in one directory. 
 
 There are few modules:
@@ -115,6 +156,52 @@ There are few modules:
 - **helpr** | *helper* is just a barn of helpful procedures, like a string or memory allocations procedures.
 
 Needed (relating) **raw files** found by their names: first part of them is signify their module (except **\_body**). This marks are really handy when looking for symbols, that you forgot. 
+
+All sourc files locate in **src**, and for all object file and binary files Make will create a **obj** and **bin** directories -- all other file structure is just for help to guys. 
+
+
+
+## PHONYs
+
+I found this *make* target usefull:
+- **clean**     -- little bash script for cleaning base dir;
+- **down**      -- remove all objects and bin files;
+- **zen**       -- **clean** + **down**;
+- **t___**      -- fast test procedure;
+- **d___**      -- fast debug procedure;
+
+
+#### test 
+```
+make tpush
+    /*    ./bin/debug push floppy.img -c obj/  */
+    /* You will found by this test, that lfe is little buggy for naming files                           */
+    /* It either 'coz FAT's internal name limit in 12 bytes. This bug can be cool toy for some hours :) */
+make tpull
+    /*    ./bin/debug pull floppy.img all  */
+make tborn
+    /*    ./bin/debug born keks -d  */
+    /* keks -- dump word                                                                                */
+    /* '-d' is just for count of args -- I miscalculate with it..                                       */
+make tlist
+    /*    ./bin/debug list floppy.img content  */
+make tlistt
+    /*    ./bin/debug list floppy.img title  */
+```
+#### gdb
+```
+make dpush
+    /*    gdb --args ./bin/debug push floppy.img -c obj/ */
+make dpull
+    /*    gdb --args ./bin/debug pull floppy.img all */
+make dborn
+    /*    gdb --args ./bin/debug born keks -d */
+make dlist
+    /*    gdb --args ./bin/debug list floppy.img content */
+make dlistt
+    /*    gdb --args ./bin/debug list floppy.img title */
+```
+
 
 
 

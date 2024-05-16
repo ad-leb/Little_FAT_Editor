@@ -24,7 +24,7 @@ void image___load ()
 
 	image___read(&data___image_info, 0, sizeof(data___image_info));
 
-	data___cluster_size = SECTOR_SIZE * data___image_info.bpb.spc;
+	data___cluster_size = data___image_info.bpb.bps * data___image_info.bpb.spc;
 	data___buffer = helpr___lalloc(data___cluster_size);
 
 	image___prepare_fat();

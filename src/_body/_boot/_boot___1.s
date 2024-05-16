@@ -61,6 +61,7 @@ L_list_case:
 L_born_case:
 	leaq	born, %rsi					# < void* born (void**) >
 	orq	$0x41, data___image_flags			# < O_CREAT | O_WRITE >
+	orb	$1, data___params
 	jmp	L_so
 
 

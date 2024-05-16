@@ -3,7 +3,6 @@
 
 
 #define ROOT_SIZE				0x20
-#define SECTOR_SIZE				0x200
 
 
 
