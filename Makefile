@@ -1,7 +1,10 @@
 .SUFFIXES:
-.PHONY: all    zen down clean    edit run    test_build tpush tpull dpush dpull
+.PHONY: all install    zen down clean    test_build tpush tpull dpush dpull
 .DEFAULT: all
 
+
+
+PREFIX::=/usr/local
 
 
 SRCDIR::= src
@@ -67,10 +70,13 @@ TEST_MODULES::= $(_BOOT) $(_BODY) $(INTER) $(HELPR) $(IMAGE) $(FAT12) $(ROOTF)
 
 all: init $(ALL_MODULES)
 	ld -e _boot -lc --dynamic-linker=/lib64/ld-linux-x86-64.so.2 -o $(BINDIR)/$(TGT) $(addprefix $(OBJDIR)/, $(ALL_MODULES))
+install: all
+	mkdir -p bin
+	install $(BINDIR)/$(TGT) $(PREFIX)/bin
 init:
-	@[ ! -e $(OBJDIR) ] && mkdir $(OBJDIR) || true
-	@[ ! -e $(RAWDIR) ] && mkdir $(RAWDIR) || true
-	@[ ! -e $(BINDIR) ] && mkdir $(BINDIR) || true
+	@mkdir -p $(OBJDIR)
+	@mkdir -p $(RAWDIR)
+	@mkdir -p $(BINDIR)
 
 
 zen: down clean
@@ -83,11 +89,6 @@ down:
 clean:
 	@for f in *; do if [ ! $$f = $(SRCDIR) ] && [ ! $$f = $(OBJDIR) ] && [ ! $$f = $(BINDIR) ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ] && [ ! $$f = 'floppy.img' ]; then rm -fr $$f; fi; done
 
-
-edit:
-	@vim -p $(SRCDIR)/*
-run:
-	@./$(BINDIR)/$(TGT)
 
 
 

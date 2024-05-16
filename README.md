@@ -139,7 +139,11 @@ To get a finished program, open directory of this file in your command shell and
 ```
 make
 ```
-After build, finished program will locate in *bin* directory. You can put this file to */usr/local/bin* or */usr/bin* for access it from anywhere.
+After build, finished program will locate in *bin* directory. For install it to *$(PREFIX)/bin* dir (by default it's a */usr/local/bin*), use this:
+```
+make install
+```
+
 
 
 
