@@ -52,6 +52,8 @@ The printed files will has a names, that they will got after **pull** procedure 
 
 
 ## **push** procedure
+> [!WARNING]
+> This program don't check for size of writing files or possible to write data yet. (little lazy, yeah). Don't use it for big data, that can be bigger, that image can take!
 ```
 lfe push <image-file> <parameter> <file>
 ```
