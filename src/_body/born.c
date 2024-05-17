@@ -34,6 +34,7 @@ int born (unsigned char* params[])
 	unsigned char*				pattern_spc = "spc=";
 	unsigned char*				pattern_rs = "rs=";
 	unsigned char*				pattern_nf = "nf=";
+	unsigned char*				pattern_re = "re=";
 	unsigned char*				pattern_ts = "ts=";
 	unsigned char*				pattern_md = "md=";
 	unsigned char*				pattern_spt = "spt=";
@@ -58,6 +59,7 @@ int born (unsigned char* params[])
 	data___image_info.bpb.spc 	= 0x01;
 	data___image_info.bpb.rs	= 0x0001;
 	data___image_info.bpb.nf	= 0x02;
+	data___image_info.bpb.re	= 0xe0;
 	data___image_info.bpb.ts	= sectors;
 	data___image_info.bpb.md 	= 0xf8;
 	data___image_info.bpb.spt	= 0x0012;
@@ -87,6 +89,7 @@ int born (unsigned char* params[])
 		if ( helpr___strcmp(params[i], pattern_spc, 4) == 0 )		  { data___image_info.bpb.spc = (byte) helpr___atoi(params[i] + 4);		continue; }
 		if ( helpr___strcmp(params[i], pattern_rs, 3) == 0 )		  { data___image_info.bpb.rs = (word) helpr___atoi(params[i] + 3);		continue; }
 		if ( helpr___strcmp(params[i], pattern_nf, 3) == 0 )		  { data___image_info.bpb.nf = (word) helpr___atoi(params[i] + 3);		continue; }
+		if ( helpr___strcmp(params[i], pattern_re, 3) == 0 )		  { data___image_info.bpb.re = (word) helpr___atoi(params[i] + 3);		continue; }
 		if ( helpr___strcmp(params[i], pattern_ts, 3) == 0 )		  { data___image_info.bpb.ts = (word) helpr___atoi(params[i] + 3);		continue; }
 		if ( helpr___strcmp(params[i], pattern_md, 3) == 0 )		  { data___image_info.bpb.md = (byte) helpr___atoi(params[i] + 3);		continue; }
 		if ( helpr___strcmp(params[i], pattern_spt, 4) == 0 )		  { data___image_info.bpb.spt = (word) helpr___atoi(params[i] + 4);		continue; }
