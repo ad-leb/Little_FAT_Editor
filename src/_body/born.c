@@ -3,6 +3,8 @@
 
 
 extern struct image_info		data___image_info;
+extern unsigned char			data___dump_jmp;
+extern unsigned char			data___dump_msg;
 
 
 int helpr___atoi (void*);
@@ -11,17 +13,17 @@ void helpr___strncpy (unsigned char*, unsigned char*, int);
 void helpr___memreset (void*, int);
 void helpr___error (int);
 void* helpr___lalloc (int);
+void helpr___write_dump_bootsector ();
 
 void image___write (void*, int, int);
 void image___prepare_fat ();
-
 
 
 int born (unsigned char* params[])
 {
 	unsigned char*				default_oem = "LFE  IMG";
 	unsigned char*				default_vl = "NEW VOLUME";
-	unsigned char*				default_fs = "FAT12";
+	unsigned char*				default_fs = "FAT12   ";
 
 
 	unsigned char*				pattern_oem = "oem=";
@@ -122,11 +124,13 @@ int born (unsigned char* params[])
 	helpr___memreset(dump, data___image_info.bpb.bps);
 	for (int i = 0; i < sectors; i++)
 		image___write(dump, i * data___image_info.bpb.bps, data___image_info.bpb.bps);
+	
 
 
 	/* format boot sector */
 	image___write(&data___image_info, 0, sizeof(data___image_info));
-	image___write(&mark, 510, 2);
+	image___write(&data___dump_jmp, 0, 3);
+	image___write(&data___dump_msg, 0x3e, 0x1d3);
 
 
 	/* tell image module to prepare fat table -- it just adding 3 bytes in begin of tables */
