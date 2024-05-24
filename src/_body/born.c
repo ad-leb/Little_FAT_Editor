@@ -51,7 +51,6 @@ int born (unsigned char* params[])
 
 	int							sectors = 0x0b40;
 	unsigned char*				dump;
-	int							mark = 0xAA55; 					/* I hope, I remove it somewhen */
 
 
 

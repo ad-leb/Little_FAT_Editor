@@ -42,7 +42,8 @@ void helpr___get_fat_name (unsigned char* to, unsigned char* from)
 	}
 	/* get last 3 characters of name */
 	if ( from_pos >= name_len )												to_pos = 8;
-	for (from_pos = name_len - 2; (to_pos < 8) && (from_pos < name_len); from_pos++) {
+	if ( from_pos < name_len - 3 ) 											from_pos = name_len - 3;
+	for (; (to_pos < 8) && (from_pos < name_len); from_pos++) {
 		ch = helpr___get_allowed_char(*(from + from_pos));
 		if ( ch )		*(to + to_pos++) = ch;
 	}

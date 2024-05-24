@@ -87,7 +87,7 @@ down:
 	@rm -fd $(OBJDIR)/*
 	@rm -fd $(BINDIR)/*
 clean:
-	@for f in *; do if [ ! $$f = $(SRCDIR) ] && [ ! $$f = $(OBJDIR) ] && [ ! $$f = $(BINDIR) ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ] && [ ! $$f = 'floppy.img' ]; then rm -fr $$f; fi; done
+	@for f in *; do if [ ! $$f = $(SRCDIR) ] && [ ! $$f = $(OBJDIR) ] && [ ! $$f = $(BINDIR) ] && [ ! $$f = 'Makefile' ] && [ ! $$f = 'README.md' ]; then rm -fr $$f; fi; done
 
 
 
@@ -96,16 +96,16 @@ clean:
 test_build: init $(TEST_MODULES)
 	ld -e _boot -lc --dynamic-linker=/lib64/ld-linux-x86-64.so.2 -o $(BINDIR)/$(DBG) $(addprefix $(OBJDIR)/, $(TEST_MODULES))
 
-tpush: test_build
+tpush: test_build $(TEST_IMG)
 	$(BINDIR)/$(DBG) push $(TEST_IMG) -c $(TEST_FILES)
-tpull: test_build
+tpull: test_build $(TEST_IMG)
 	$(BINDIR)/$(DBG) pull $(TEST_IMG) all
-tlist: test_build
+tlist: test_build $(TEST_IMG)
 	$(BINDIR)/$(DBG) list $(TEST_IMG) content
-tlistt: test_build
+tlistt: test_build $(TEST_IMG)
 	$(BINDIR)/$(DBG) list $(TEST_IMG) title
 tborn: test_build
-	$(BINDIR)/$(DBG) born keks -c
+	$(BINDIR)/$(DBG) born $(TEST_IMG) sn=185147902 oem=LFE\ TEST fs=FAT12 vl=ITSPOPS 
 
 dpush: test_build
 	gdb --args $(BINDIR)/$(DBG) push $(TEST_IMG) -c $(TEST_FILES)
@@ -116,7 +116,7 @@ dlist: test_build
 dlistt: test_build
 	gdb --args $(BINDIR)/$(DBG) list $(TEST_IMG) title
 dborn: test_build
-	gdb --args $(BINDIR)/$(DBG) born keks -c sn=797979 vl=ITSPOPS
+	gdb --args $(BINDIR)/$(DBG) born $(TEST_IMG) -c sn=10334718 vl=ITSPOPS
 
 
 
@@ -153,6 +153,7 @@ $(HELPR): $(HELPR_RAW)
 
 
 
+$(TEST_IMG): tborn
 %.o: %.c
 	gcc -c -fpack-struct -isystem $(_HEADDIR) $< -o $(RAWDIR)/$@
 %.o: %.s
