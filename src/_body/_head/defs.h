@@ -17,6 +17,7 @@
 #define ERR_CLOS				0007
 #define ERR_CDIR				0010
 #define ERR_UNKN				0011
+#define ERR_LIMT				0012
 
 
 

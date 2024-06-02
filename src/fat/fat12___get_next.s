@@ -1,7 +1,16 @@
 .global		fat12___get_next
 
+# int fat12___get_next (int current cluster);
+#	return next by passed cluster;
+
 
 .text
+#***************************************************************
+#			get_next
+#_______________________________________________________________
+# input:	rdi -- current cluster;
+# output:	rax -- next cluster;
+#***************************************************************
 fat12___get_next:
 	pushq	%rbx
 	pushq	%rsi

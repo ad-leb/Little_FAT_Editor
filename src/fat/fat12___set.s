@@ -1,7 +1,16 @@
 .global		fat12___set
 
+# int fat12___set (int CLUSTER, int VALUE);
+# 	Set CLUSTER with VALUE -- set next cluster;
+
 
 .text
+#***************************************************************
+#			set
+#_______________________________________________________________
+# input:	rdi -- number of CLUSTER;
+#		rsi -- number of next cluster -- VALUE;
+#***************************************************************
 fat12___set:
 	pushq	%rdx
 	pushq	%rcx

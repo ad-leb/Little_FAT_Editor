@@ -1,7 +1,15 @@
 .global		fat12___reset
 
+# void fat12___reset (int cluster);
+#	reset passed cluster (make it 0x000);
+
 
 .text
+#***************************************************************
+#			get_next
+#_______________________________________________________________
+# input:	rdi -- number of cluster;
+#***************************************************************
 fat12___reset:
 	pushq	%rdx
 	

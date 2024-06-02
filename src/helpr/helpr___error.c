@@ -18,6 +18,7 @@ void helpr___error (int code)
 		case ERR_NFND	:				helpr___exit(ERR_NFND);				break;
 		case ERR_CLOS	:				helpr___exit(ERR_CLOS);				break;
 		case ERR_UNKN	:				helpr___exit(ERR_UNKN);				break;
+		case ERR_LIMT	:				helpr___exit(ERR_LIMT);				break;
 		default			:				helpr___exit(99);					break;
 	}
 }

@@ -96,13 +96,13 @@ clean:
 test_build: init $(TEST_MODULES)
 	ld -e _boot -lc --dynamic-linker=/lib64/ld-linux-x86-64.so.2 -o $(BINDIR)/$(DBG) $(addprefix $(OBJDIR)/, $(TEST_MODULES))
 
-tpush: test_build $(TEST_IMG)
+tpush: test_build 
 	$(BINDIR)/$(DBG) push $(TEST_IMG) -c $(TEST_FILES)
-tpull: test_build $(TEST_IMG)
+tpull: test_build 
 	$(BINDIR)/$(DBG) pull $(TEST_IMG) all
-tlist: test_build $(TEST_IMG)
+tlist: test_build 
 	$(BINDIR)/$(DBG) list $(TEST_IMG) content
-tlistt: test_build $(TEST_IMG)
+tlistt: test_build 
 	$(BINDIR)/$(DBG) list $(TEST_IMG) title
 tborn: test_build
 	$(BINDIR)/$(DBG) born $(TEST_IMG) sn=185147902 oem=LFE\ TEST fs=FAT12 vl=ITSPOPS 
